@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+nav {
+  background: #111;
+  padding: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.container {
+  padding: 40px;
+}
+
+button {
+  background: #6c2bd9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+}
