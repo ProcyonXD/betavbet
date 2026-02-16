@@ -9,68 +9,79 @@
       background: #0f0f0f;
       color: white;
       font-family: Arial, sans-serif;
+      display: flex;
     }
 
-    h2 {
+    .sidebar {
+      width: 250px;
+      background: #181818;
       padding: 20px;
-      margin: 0;
+      overflow-y: auto;
+      height: 100vh;
     }
 
-    .game-list {
-      padding: 20px;
+    .sidebar h2 {
+      margin-top: 0;
     }
 
-    .game-button {
+    .game-btn {
       display: block;
-      margin-bottom: 15px;
-      padding: 12px;
+      padding: 10px;
+      margin-bottom: 10px;
       background: #6c2bd9;
-      color: white;
-      text-decoration: none;
       border-radius: 6px;
       cursor: pointer;
-      width: 250px;
       text-align: center;
     }
 
-    .game-button:hover {
+    .game-btn:hover {
       background: #5a22b8;
     }
 
-    .game-frame {
-      width: 100%;
-      height: 80vh;
-      border: none;
-      margin-top: 20px;
+    .main {
+      flex: 1;
+      padding: 10px;
     }
 
-    .hidden {
-      display: none;
+    iframe {
+      width: 100%;
+      height: 95vh;
+      border: none;
     }
   </style>
 </head>
 
 <body>
 
-<h2>Available Games</h2>
+<div class="sidebar">
+  <h2>Games</h2>
 
-<div class="game-list">
-
-  <div class="game-button" onclick="loadGame('buckshot-roulette')">
-    Play Buckshot Roulette
-  </div>
+  <div class="game-btn" onclick="loadGame('baldi-remaster')">Baldi Remaster</div>
+  <div class="game-btn" onclick="loadGame('buckshot-roulette')">Buckshot Roulette</div>
+  <div class="game-btn" onclick="loadGame('deltatraveler')">Deltatraveler</div>
+  <div class="game-btn" onclick="loadGame('hollow-knight')">Hollow Knight</div>
+  <div class="game-btn" onclick="loadGame('minesweeper')">Minesweeper</div>
+  <div class="game-btn" onclick="loadGame('the-man-in-the-window')">The Man in the Window</div>
+  <div class="game-btn" onclick="loadGame('ultrakill')">Ultrakill</div>
+  <div class="game-btn" onclick="loadGame('undertale-yellow')">Undertale Yellow</div>
+  <div class="game-btn" onclick="loadGame('fnaf 1')">FNAF 1</div>
+  <div class="game-btn" onclick="loadGame('fnaf 2')">FNAF 2</div>
+  <div class="game-btn" onclick="loadGame('fnaf 3')">FNAF 3</div>
+  <div class="game-btn" onclick="loadGame('fnaf 4')">FNAF 4</div>
+  <div class="game-btn" onclick="loadGame('hotline-miami')">Hotline Miami</div>
 
 </div>
 
-<iframe id="gameFrame" class="game-frame hidden"></iframe>
+<div class="main">
+  <iframe id="gameFrame"></iframe>
+</div>
 
 <script>
-function loadGame(folderName) {
-  const frame = document.getElementById("gameFrame");
-  frame.src = "games/" + folderName + "/index.html";
-  frame.classList.remove("hidden");
+function loadGame(folder) {
+  document.getElementById("gameFrame").src = "games/" + folder + "/index.html";
 }
 </script>
 
 </body>
 </html>
+
