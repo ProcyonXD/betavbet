@@ -2,8 +2,7 @@
 <html>
 <head>
   <title>Music - beta v bet</title>
-
-  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
 
   <style>
     body {
@@ -11,14 +10,6 @@
       background: #0f0f0f;
       color: white;
       font-family: Arial, sans-serif;
-    }
-
-    h2 {
-      padding: 20px;
-      margin: 0;
-    }
-
-    .search-box {
       padding: 20px;
     }
 
@@ -27,30 +18,30 @@
       width: 300px;
       border-radius: 6px;
       border: none;
-      outline: none;
     }
 
     button {
-      padding: 10px 15px;
+      padding: 10px;
+      margin-left: 10px;
       border: none;
       border-radius: 6px;
       background: #6c2bd9;
       color: white;
       cursor: pointer;
-      margin-left: 10px;
     }
 
-    button:hover {
-      background: #5a22b8;
-    }
-
-    .player-container {
-      padding: 20px;
+    .result {
+      margin-top: 15px;
+      cursor: pointer;
+      padding: 10px;
+      background: #222;
+      border-radius: 6px;
     }
 
     iframe {
       width: 100%;
       height: 166px;
+      margin-top: 20px;
       border: none;
     }
   </style>
@@ -58,28 +49,43 @@
 
 <body>
 
-<h2>Music Player</h2>
+<h2>Search Music</h2>
 
-<div class="search-box">
-  <input type="text" id="songInput" placeholder="Paste SoundCloud song link here">
-  <button onclick="playSong()">Play</button>
-</div>
+<input type="text" id="searchInput" placeholder="Search for a song">
+<button onclick="searchMusic()">Search</button>
 
-<div class="player-container">
-  <iframe id="scPlayer"></iframe>
-</div>
+<div id="results"></div>
+
+<iframe id="player"></iframe>
 
 <script>
-function playSong() {
-  const link = document.getElementById("songInput").value;
-  const iframe = document.getElementById("scPlayer");
+const CLIENT_ID = "fqaiLMkkRybi9I90TsqvLeGGsK3rVzwH";
 
-  if (!link) {
-    alert("Paste a SoundCloud link first.");
-    return;
-  }
+SC.initialize({
+  client_id: CLIENT_ID
+});
 
-  iframe.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(link) + "&auto_play=true";
+function searchMusic() {
+  const query = document.getElementById("searchInput").value;
+
+  SC.get('/tracks', { q: query, limit: 5 })
+    .then(function(tracks) {
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      tracks.forEach(track => {
+        const div = document.createElement("div");
+        div.className = "result";
+        div.innerText = track.title + " - " + track.user.username;
+        div.onclick = () => playTrack(track.permalink_url);
+        resultsDiv.appendChild(div);
+      });
+    });
+}
+
+function playTrack(url) {
+  document.getElementById("player").src =
+    "https://w.soundcloud.com/player/?url=" + encodeURIComponent(url) + "&auto_play=true";
 }
 </script>
 
